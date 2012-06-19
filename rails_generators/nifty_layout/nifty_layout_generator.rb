@@ -7,6 +7,7 @@ class NiftyLayoutGenerator < Rails::Generator::Base
   def manifest
     record do |m|
       m.directory 'app/views/layouts'
+      m.directory 'app/assets/stylesheets'
       m.directory 'public/stylesheets'
       m.directory 'app/helpers'
 
@@ -16,7 +17,7 @@ class NiftyLayoutGenerator < Rails::Generator::Base
         m.file     "stylesheet.sass",  "public/stylesheets/sass/#{file_name}.sass"
       else
         m.template "layout.html.erb", "app/views/layouts/#{file_name}.html.erb"
-        m.file     "stylesheet.css",  "public/stylesheets/#{file_name}.css"
+        m.file     "stylesheet.css",  "app/assets/stylesheets/#{file_name}.css"
       end
       m.file "helper.rb", "app/helpers/layout_helper.rb"
     end
