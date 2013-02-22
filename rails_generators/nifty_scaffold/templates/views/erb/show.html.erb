@@ -1,20 +1,12 @@
-<%% title "<%= singular_name.titleize %>" %>
+<p id="notice"><%%= notice %></p>
 
-<%- for attribute in attributes -%>
+<% attributes.each do |attribute| -%>
 <p>
-  <strong><%= attribute.column.human_name.titleize %>:</strong>
-  <%%=h @<%= singular_name %>.<%= attribute.name %> %>
+  <b><%= attribute.human_name %>:</b>
+  <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
 </p>
-<%- end -%>
 
-<p>
-<%- if action? :edit -%>
-  <%%= link_to "Edit", edit_<%= singular_name %>_path(@<%= singular_name %>) %> |
-<%- end -%>
-<%- if action? :destroy -%>
-  <%%= link_to "Destroy", @<%= singular_name %>, :confirm => 'Are you sure?', :method => :delete %> |
-<%- end -%>
-<%- if action? :index -%>
-  <%%= link_to "View All", <%= plural_name %>_path %>
-<%- end -%>
-</p>
+<% end -%>
+
+<%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>) %> |
+<%%= link_to 'Back', <%= index_helper %>_path %>
