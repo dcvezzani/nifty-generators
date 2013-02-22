@@ -1,14 +1,6 @@
-<%% title "Edit <%= singular_name.titleize %>" %>
+<h1>Editing <%= singular_table_name %></h1>
 
-<%= render_form %>
+<%%= render 'form' %>
 
-<%- if actions? :show, :index -%>
-<p>
-<%- if action? :show -%>
-  <%%= link_to "Show", <%= item_path :instance_variable => true %> %> |
-<%- end -%>
-<%- if action? :index -%>
-  <%%= link_to "View All", <%= items_path %> %>
-<%- end -%>
-</p>
-<%- end -%>
+<%%= link_to 'Show', @<%= singular_table_name %> %> |
+<%%= link_to 'Back', <%= index_helper %>_path %>
