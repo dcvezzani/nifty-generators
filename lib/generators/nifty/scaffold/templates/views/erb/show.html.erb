@@ -7,14 +7,16 @@
 </p>
 <%- end -%>
 
-<p>
+<%- if actions? :edit, :destroy, :index -%>
+<ul class="wp-actions-list">
 <%- if action? :edit -%>
-  <%%= link_to "Edit", <%= item_path :action => :edit, :instance_variable => true %> %> |
+  <li><%%= link_to_iconable 'Edit', [:edit, @client, @<%= singular_name %>], class: "edit-item show-text" %></li>
 <%- end -%>
 <%- if action? :destroy -%>
-  <%%= link_to "Destroy", <%= item_path :instance_variable => true %>, :confirm => 'Are you sure?', :method => :delete %> |
+  <li><%%= link_to_iconable 'Destroy', [@client, @<%= singular_name %>], class: "destroy-item show-text", method: :delete, data: { confirm: 'Are you sure?' } %></li>
 <%- end -%>
 <%- if action? :index -%>
-  <%%= link_to "View All", <%= items_path %> %>
+  <li><%%= link_to_iconable 'View All', [@client, :<%= plural_name %>], class: "index-item show-text" %></li>
 <%- end -%>
-</p>
+</ul>
+<%- end -%>

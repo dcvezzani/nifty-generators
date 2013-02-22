@@ -3,12 +3,12 @@
 <%= render_form %>
 
 <%- if actions? :show, :index -%>
-<p>
+<ul class="wp-actions-list">
 <%- if action? :show -%>
-  <%%= link_to "Show", <%= item_path :instance_variable => true %> %> |
+  <li><%%= link_to_iconable 'Show', [@client, @<%= singular_name %>], class: "show-item show-text" %></li>
 <%- end -%>
 <%- if action? :index -%>
-  <%%= link_to "View All", <%= items_path %> %>
+  <li><%%= link_to_iconable 'View All', [@client, :<%= plural_name %>], class: "index-item show-text" %></li>
 <%- end -%>
-</p>
+</ul>
 <%- end -%>

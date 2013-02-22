@@ -1,5 +1,4 @@
 <%%= form_for([@client, @<%= singular_name %>], html: {"data-load" => "#<%= plural_name %>", class: "form-horizontal"}) do |f| %>
-  <%#%= f.error_messages %>
 
   <%% if @mailing_address.errors.any? %>
     <div id="error_explanation">
@@ -7,27 +6,38 @@
 
       <ul>
       <%% @<%= plural_name %>.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li><%%= msg %></li>
       <%% end %>
       </ul>
     </div>
   <%% end %>
   
 <%- for attribute in model_attributes -%>
-  <div class="field">
-    <%%= f.label :<%= attribute.name %> %>
-    <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
-  </div>
-
   <%- if([:radio_button, :check_box].include?(attribute.field_type)) -%>
   <div class="control-group">
-    <%%= label_tag nil, <%= attribute.name.captialize %>, class: "control-label" %>
+    <%%= label_tag nil, "<%= attribute.name.capitalize %>?", class: "control-label" %>
     <div class="controls">
       <%%= f.label :<%= attribute.name %>_true, class: "radio inline" do %>
         <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, :true %> Yes
       <%% end %>
       <%%= f.label :<%= attribute.name %>_false, class: "radio inline" do %>
         <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, :false %> No
+      <%% end %>
+    </div>
+  </div>
+
+  <%- elsif([:check_box].include?(attribute.field_type)) -%>
+  <div class="control-group">
+    <%%= label_tag nil, "<%= attribute.name %>", class: "control-label" %>
+    <div class="controls">
+      <%%= f.label :<%= attribute.name %>_one, class: "checkbox inline" do %>
+        <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, :one %> One
+      <%% end %>
+      <%%= f.label :<%= attribute.name %>_two, class: "checkbox inline" do %>
+        <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, :two %> Two
+      <%% end %>
+      <%%= f.label :<%= attribute.name %>_three, class: "checkbox inline" do %>
+        <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, :three %> Three
       <%% end %>
     </div>
   </div>
@@ -39,14 +49,15 @@
       <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
     </div>
   </div>
+
   <%- end -%>
 <%- end -%>
-
   <div class="actions">
     <div class="controls">
       <%%= f.submit nil, class: "btn" %>
     </div>
   </div>
+
 <%% end %>
 
 <script type="text/javascript">

@@ -3,5 +3,7 @@
 <%= render_form %>
 
 <%- if action? :index -%>
-<p><%%= link_to "Back to List", <%= items_path %> %></p>
+<ul class="wp-actions-list">
+  <li><%%= link_to_iconable 'Back to List', [@client, :<%= plural_name %>], class: "index-item show-text" %></li>
+</ul>
 <%- end -%>
