@@ -1,16 +1,6 @@
 <%%= form_for([@client, @<%= singular_name %>], html: {"data-load" => "#<%= plural_name %>", class: "form-horizontal"}) do |f| %>
 
-  <%% if @mailing_address.errors.any? %>
-    <div id="error_explanation">
-      <h2><%%= pluralize(@<%= plural_name %>.errors.count, "error") %> prohibited this mailing_address from being saved:</h2>
-
-      <ul>
-      <%% @<%= plural_name %>.errors.full_messages.each do |msg| %>
-        <li><%%= msg %></li>
-      <%% end %>
-      </ul>
-    </div>
-  <%% end %>
+  <%%= f.error_messages %>
   
 <%- for attribute in model_attributes -%>
   <%- if([:radio_button, :check_box].include?(attribute.field_type)) -%>
