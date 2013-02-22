@@ -1,10 +1,55 @@
-<%%= form_for <%= item_path :instance_variable => true %> do |f| %>
-  <%%= f.error_messages %>
+<%%= form_for([@client, @<%= singular_name %>], html: {"data-load" => "#<%= plural_name %>", class: "form-horizontal"}) do |f| %>
+  <%#%= f.error_messages %>
+
+  <%% if @mailing_address.errors.any? %>
+    <div id="error_explanation">
+      <h2><%%= pluralize(@<%= plural_name %>.errors.count, "error") %> prohibited this mailing_address from being saved:</h2>
+
+      <ul>
+      <%% @<%= plural_name %>.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <%% end %>
+      </ul>
+    </div>
+  <%% end %>
+  
 <%- for attribute in model_attributes -%>
   <div class="field">
     <%%= f.label :<%= attribute.name %> %>
     <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
   </div>
+
+  <%- if([:radio_button, :check_box].include?(attribute.field_type)) -%>
+  <div class="control-group">
+    <%%= label_tag nil, <%= attribute.name.captialize %>, class: "control-label" %>
+    <div class="controls">
+      <%%= f.label :<%= attribute.name %>_true, class: "radio inline" do %>
+        <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, :true %> Yes
+      <%% end %>
+      <%%= f.label :<%= attribute.name %>_false, class: "radio inline" do %>
+        <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, :false %> No
+      <%% end %>
+    </div>
+  </div>
+
+  <%- else -%>
+  <div class="control-group">
+    <%%= f.label :<%= attribute.name %>, class: "control-label" %>
+    <div class="controls">
+      <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
+    </div>
+  </div>
+  <%- end -%>
 <%- end -%>
-  <div class="actions"><%%= f.submit %></div>
+
+  <div class="actions">
+    <div class="controls">
+      <%%= f.submit nil, class: "btn" %>
+    </div>
+  </div>
 <%% end %>
+
+<script type="text/javascript">
+  <%= singular_name %>_patch.bloom("form");
+</script>
+  
