@@ -6,7 +6,7 @@ module Nifty
   module Generators
     class ScaffoldGenerator < Base
       include Rails::Generators::Migration
-      no_tasks { attr_accessor :scaffold_name, :model_attributes, :controller_actions }
+      no_tasks { attr_accessor :scaffold_name, :model_attributes, :controller_actions, :nested_route_model_names }
 
       argument :scaffold_name, :type => :string, :required => true, :banner => 'ModelName'
       argument :args_for_c_m, :type => :array, :default => [], :banner => 'controller_actions and model:attributes'
@@ -30,12 +30,18 @@ module Nifty
 
         @controller_actions = []
         @model_attributes = []
+        @nested_route_model_names = []
         @skip_model = options.skip_model?
         @namespace_model = options.namespace_model?
         @invert_actions = options.invert?
 
         args_for_c_m.each do |arg|
-          if arg == '!'
+          if arg.include?('nested.route.options')
+            @nested_route_model_names = (arg.match(/=([^=]+)$/)[1]).split(/[,;\/]/)
+          # if arg.include?('nested:route:options')
+          #   @nested_route_model_names = (arg.match(/:([^:]+)$/)[1]).split(/[,;\/]/)
+
+          elsif arg == '!'
             @invert_actions = true
           elsif arg.include?(':')
             @model_attributes << Rails::Generators::GeneratedAttribute.new(*arg.split(':'))
@@ -119,6 +125,10 @@ module Nifty
       end
 
       private
+
+      def nested_route_model_name_list
+        @nested_route_model_names.map{|model_name| "@#{model_name}, "}.join("")
+      end
 
       def form_partial?
         actions? :new, :edit

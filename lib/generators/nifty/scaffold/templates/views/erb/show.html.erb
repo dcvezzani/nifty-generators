@@ -10,13 +10,17 @@
 <%- if actions? :edit, :destroy, :index -%>
 <ul class="wp-actions-list">
 <%- if action? :edit -%>
-  <li><%%= link_to_iconable 'Edit', [:edit, @client, @<%= singular_name %>], class: "edit-item show-text" %></li>
+  <li><%%= link_to_iconable 'Edit', [:edit, <%= nested_route_model_name_list %>@<%= singular_name %>], class: "edit-item show-text" %></li>
 <%- end -%>
 <%- if action? :destroy -%>
-  <li><%%= link_to_iconable 'Destroy', [@client, @<%= singular_name %>], class: "destroy-item show-text", method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  <li><%%= link_to_iconable 'Destroy', [<%= nested_route_model_name_list %>@<%= singular_name %>], class: "destroy-item show-text", method: :delete, data: { confirm: 'Are you sure?' } %></li>
 <%- end -%>
 <%- if action? :index -%>
-  <li><%%= link_to_iconable 'View All', [@client, :<%= plural_name %>], class: "index-item show-text" %></li>
+  <li><%%= link_to_iconable 'View All', [<%= nested_route_model_name_list %>:<%= plural_name %>], class: "index-item show-text" %></li>
 <%- end -%>
 </ul>
 <%- end -%>
+
+<script type="text/javascript">
+  <%= singular_name %>_patch.bloom("show");
+</script>

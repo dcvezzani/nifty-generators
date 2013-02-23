@@ -4,6 +4,10 @@
 
 <%- if action? :index -%>
 <ul class="wp-actions-list">
-  <li><%%= link_to_iconable 'Back to List', [@client, :<%= plural_name %>], class: "index-item show-text" %></li>
+  <li><%%= link_to_iconable 'Back to List', [<%= nested_route_model_name_list %>:<%= plural_name %>], class: "index-item show-text" %></li>
 </ul>
 <%- end -%>
+
+<script type="text/javascript">
+  <%= singular_name %>_patch.bloom("new");
+</script>

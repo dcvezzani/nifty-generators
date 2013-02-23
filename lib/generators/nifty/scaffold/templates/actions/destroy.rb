@@ -3,7 +3,7 @@
     @<%= instance_name %>.destroy
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_path([@client, :<%= instances_name %>], load_style: :partial), notice: '<%= class_name.underscore.humanize.downcase %> was successfully destroyed.' }
+      format.html { redirect_to polymorphic_path([<%= nested_route_model_name_list %>:<%= instances_name %>], load_style: :partial), notice: '<%= class_name.underscore.humanize.downcase %> was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

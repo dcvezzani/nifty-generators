@@ -5,10 +5,14 @@
 <%- if actions? :show, :index -%>
 <ul class="wp-actions-list">
 <%- if action? :show -%>
-  <li><%%= link_to_iconable 'Show', [@client, @<%= singular_name %>], class: "show-item show-text" %></li>
+  <li><%%= link_to_iconable 'Show', [<%= nested_route_model_name_list %>@<%= singular_name %>], class: "show-item show-text" %></li>
 <%- end -%>
 <%- if action? :index -%>
-  <li><%%= link_to_iconable 'View All', [@client, :<%= plural_name %>], class: "index-item show-text" %></li>
+  <li><%%= link_to_iconable 'View All', [<%= nested_route_model_name_list %>:<%= plural_name %>], class: "index-item show-text" %></li>
 <%- end -%>
 </ul>
 <%- end -%>
+
+<script type="text/javascript">
+  <%= singular_name %>_patch.bloom("edit");
+</script>

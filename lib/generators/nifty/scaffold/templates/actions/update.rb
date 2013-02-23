@@ -3,7 +3,7 @@
 
     respond_to do |format|
       if @<%= instance_name %>.update_attributes(params[:<%= instance_name %>])
-        format.html { redirect_to polymorphic_path([@client, :<%= instances_name %>], load_style: :partial), notice: '<%= class_name.underscore.humanize.downcase %> was successfully updated.' }
+        format.html { redirect_to polymorphic_path([<%= nested_route_model_name_list %>:<%= instances_name %>], load_style: :partial), notice: '<%= class_name.underscore.humanize.downcase %> was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

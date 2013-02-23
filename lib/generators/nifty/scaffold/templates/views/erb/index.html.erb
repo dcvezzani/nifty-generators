@@ -17,13 +17,13 @@
       <td>
         <ul class="wp-actions-list">
     <%- if action? :show -%>
-          <li><%%= link_to_iconable 'Show', [@client, @<%= singular_name %>], class: "show-item" %></li>
+          <li><%%= link_to_iconable 'Show', [<%= nested_route_model_name_list %><%= singular_name %>], class: "show-item" %></li>
     <%- end -%>
     <%- if action? :edit -%>
-          <li><%%= link_to_iconable 'Edit', [:edit, @client, @<%= singular_name %>], class: "edit-item" %></li>
+          <li><%%= link_to_iconable 'Edit', [:edit, <%= nested_route_model_name_list %><%= singular_name %>], class: "edit-item" %></li>
     <%- end -%>
     <%- if action? :destroy -%>
-          <li><%%= link_to_iconable 'Destroy', [@client, @<%= singular_name %>], class: "destroy-item", method: :delete, data: { confirm: 'Are you sure?' } %></li>
+          <li><%%= link_to_iconable 'Destroy', [<%= nested_route_model_name_list %><%= singular_name %>], class: "destroy-item", method: :delete, data: { confirm: 'Are you sure?' } %></li>
     <%- end -%>
         </ul>
       </td>
@@ -33,6 +33,10 @@
 
 <%- if action? :new -%>
 <ul class="wp-actions-list">
-  <%%= link_to_iconable 'Add <%= singular_name.titleize %>', [:new, @client, :<%= singular_name%>], class: "new-item show-text" %>
+  <%%= link_to_iconable 'Add <%= singular_name.titleize %>', [:new, <%= nested_route_model_name_list %>:<%= singular_name%>], class: "new-item show-text" %>
 </ul>
 <%- end -%>
+
+<script type="text/javascript">
+  <%= singular_name %>_patch.bloom("index");
+</script>

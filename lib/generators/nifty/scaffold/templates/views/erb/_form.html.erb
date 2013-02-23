@@ -1,4 +1,4 @@
-<%%= form_for([@client, @<%= singular_name %>], html: {"data-load" => "#<%= plural_name %>", class: "form-horizontal"}) do |f| %>
+<%%= form_for([<%= nested_route_model_name_list %>@<%= singular_name %>], html: {"data-load" => "#<%= plural_name %>", class: "form-horizontal"}) do |f| %>
 
   <%%= f.error_messages %>
   
@@ -53,4 +53,3 @@
 <script type="text/javascript">
   <%= singular_name %>_patch.bloom("form");
 </script>
-  
